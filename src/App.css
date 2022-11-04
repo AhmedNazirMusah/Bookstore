@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.button-books {
+  display: flex;
+  list-style: none;
+}
+
+.nav-container {
+  display: flex;
+  font-size: x-large;
+  gap: 19px;
+}
+
+.main-nav {
+  gap: 22px;
+  display: flex;
+  list-style: none;
+}
