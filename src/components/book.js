@@ -1,22 +1,16 @@
-/* eslint-disable react/destructuring-assignment */
-import React from 'react';
-import PropTypes from 'prop-types';
+import Bookitem from './bookitem';
+import Addbook from './addbook';
 
-const Book = ({ bookTitle, bookAuthor }) => (
-  <div>
-    <h2>{bookTitle}</h2>
-    <p>{bookAuthor}</p>
-    <ul className="button-books">
-      <li><button type="button">comment</button></li>
-      <li><button type="button">delete</button></li>
-      <li><button type="button">edit</button></li>
-    </ul>
-  </div>
-);
-
-Book.propTypes = {
-  bookTitle: PropTypes.string.isRequired,
-  bookAuthor: PropTypes.string.isRequired,
+const Book = () => {
+  const books = [{ id: 1, bookTitle: 'Walking Dead', bookAuthor: 'Esther Morgan' }, { id: 2, bookTitle: 'React Hooks', bookAuthor: 'Justice' }];
+  return (
+    <>
+      {books.map(({ bookTitle, bookAuthor, id }) => (
+        <Bookitem key={id} bookTitle={bookTitle} bookAuthor={bookAuthor} />
+      ))}
+      <Addbook />
+    </>
+  );
 };
 
 export default Book;

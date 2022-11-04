@@ -1,8 +1,10 @@
 import React from 'react';
-import AddBook from './addbook';
+import Book from './book';
 
 const Books = () => (
-  <AddBook />
+  <>
+    <Book />
+  </>
 );
 
 export default Books;
