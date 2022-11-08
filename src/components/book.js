@@ -1,13 +1,43 @@
-import Bookitem from './bookitem';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeBook } from '../redux/books/books';
 import Addbook from './addbook';
+// import Bookitem from './bookitem';
 
 const Book = () => {
-  const books = [{ id: 1, bookTitle: 'Walking Dead', bookAuthor: 'Esther Morgan' }, { id: 2, bookTitle: 'React Hooks', bookAuthor: 'Justice' }];
+  const books = useSelector((state) => state.books);
+  const dispatch = useDispatch();
   return (
     <>
-      {books.map(({ bookTitle, bookAuthor, id }) => (
-        <Bookitem key={id} bookTitle={bookTitle} bookAuthor={bookAuthor} />
+      {books.map((book) => (
+        <div key={book.id} className="card">
+          <div className="book--info">
+            <h1>{book.title}</h1>
+            <p>{book.author}</p>
+            <ul className="book--utils">
+              <button
+                type="button"
+              >
+                Comment
+              </button>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.preventDefault();
+                  dispatch(removeBook(book.id));
+                }}
+              >
+                Remove
+              </button>
+              <button
+                type="button"
+              >
+                Edit
+              </button>
+            </ul>
+          </div>
+        </div>
       ))}
+
       <Addbook />
     </>
   );
