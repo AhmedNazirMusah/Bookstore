@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { createBook } from '../redux/books/books';
+import { useDispatch } from 'react-redux';
+import { createBookThunk } from '../redux/books/books';
 
 const Addbook = () => {
-  const [bookDetail, setBookDetail] = useState({ title: '', author: '' });
-  const books = useSelector((state) => state.books);
+  const [bookDetail, setBookDetail] = useState({ title: '', author: '', category: '' });
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const titleInput = document.querySelector('.input-text');
     const authorInput = document.querySelector('.input-text2');
+    const categoryInput = document.querySelector('.category');
 
-    if (titleInput.value !== '' && authorInput.value !== '') {
-      dispatch(createBook(books.length + 1, bookDetail.title, bookDetail.author));
+    if (titleInput.value !== '' && authorInput.value !== '' && bookDetail.category) {
+      dispatch(createBookThunk(bookDetail));
     }
 
     titleInput.value = '';
     authorInput.value = '';
+    categoryInput.value = '';
   };
 
   const handleInputValues = (e) => {
@@ -45,6 +46,13 @@ const Addbook = () => {
           name="author"
           onChange={handleInputValues}
         />
+        <select value={bookDetail.category} onChange={handleInputValues} name="category" className="category">
+          <option value="History">Romance</option>
+          <option value="Romance">History</option>
+          <option value="Mystery">Technology</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Mystery</option>
+        </select>
         <button type="submit" onClick={handleSubmit}>
           submit
         </button>

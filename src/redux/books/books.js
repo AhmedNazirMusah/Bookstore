@@ -1,39 +1,60 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import uuid from 'react-uuid';
+import axios from 'axios';
+
 export const CREATE_BOOK = 'bookstore/books/CREATE_BOOK';
 export const REMOVE_BOOK = 'bookstore/books/REMOVE_BOOK';
+export const GET_BOOKS = 'bookstore/books/GET_BOOKS';
 
-export const createBook = (bookId, bookTitle, bookAuthor) => ({
-  type: CREATE_BOOK,
-  id: bookId,
-  title: bookTitle,
-  author: bookAuthor,
+const appid = 'lMwcH8GNEsTd4Nz9hzwh';
+const baseUrl = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps';
+
+export const getBooksThunk = createAsyncThunk(GET_BOOKS, async () => {
+  const response = await axios.get(`${baseUrl}/${appid}/books`);
+  const res = response.data;
+  return Object.keys(res).map((key) => ({
+    id: key,
+    ...res[key][0],
+  }));
 });
 
-export const removeBook = (bookid) => ({
-  type: REMOVE_BOOK,
-  id: bookid,
-});
-
-const initialState = [
-  { id: 1, title: 'The Abode of peace', author: 'Micheal Arthur' },
-  { id: 2, title: 'Daarul Salaam', author: 'Love Nuamah' },
-  {
-    id: 3,
-    title: 'Rings of Alxima',
-    author: 'Bob white',
+export const createBookThunk = createAsyncThunk(
+  CREATE_BOOK,
+  async (
+    newBook,
+    thunkAPI,
+  ) => {
+    const book = {
+      item_id: uuid(),
+      title: newBook.title,
+      author: newBook.author,
+      category: newBook.category,
+    };
+    await axios.post(`${baseUrl}/${appid}/books/`, book)
+      .then(() => { thunkAPI.dispatch(getBooksThunk()); })
+    // eslint-disable-next-line no-console
+      .catch((error) => { console.log(error); });
+    return thunkAPI.getState().books;
   },
-];
+);
 
-const booksreducer = (state = initialState, action) => {
-  switch (action.type) {
-    case CREATE_BOOK:
-      return [...state, { id: action.id, title: action.title, author: action.author }];
-    case REMOVE_BOOK: {
-      const newstate = state.filter((book) => book.id !== action.id);
-      return newstate;
-    }
-    default:
-      return state;
+export const removeBookThunk = createAsyncThunk(REMOVE_BOOK, async (bookId, thunkAPI) => {
+  await axios.delete(`${baseUrl}/${appid}/books/${bookId}`)
+    .then(() => { thunkAPI.dispatch(getBooksThunk()); })
+    // eslint-disable-next-line no-console
+    .catch((error) => { console.log(error); });
+  return thunkAPI.getState().books;
+});
+
+const bookStoreSlice = createSlice((
+  {
+    name: 'bookstore',
+    initialState: [],
+    extraReducers: {
+      [getBooksThunk.fulfilled]: (state, action) => action.payload,
+      [createBookThunk.fulfilled]: (state, action) => action.payload,
+    },
   }
-};
+));
 
-export default booksreducer;
+export default bookStoreSlice.reducer;
