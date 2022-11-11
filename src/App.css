@@ -43,7 +43,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #0241ff;
+  color: #4386bf;
 }
 
 .img-png {
@@ -83,7 +83,7 @@
   margin: 0.188rem 0.938rem 0.125rem 0;
   font-size: 0.875rem;
   font-weight: 300;
-  color: #0241ff;
+  color: #4386bf;
   background: none;
   border: none;
 }
@@ -98,23 +98,23 @@
 .loader {
   width: 7.25rem;
   height: 6.25rem;
-  color: #0241ff;
+  color: #4386bf;
 }
 
 .oval {
-  color: #0241ff;
+  color: #4386bf;
 }
 
 .submit {
   padding: 17px;
-  background-color: #0241ff;
+  background-color: #4386bf;
   border: none;
   color: white;
 }
 
 .b-color {
   padding: 8px;
-  background-color: #0241ff;
+  background-color: #4386bf;
   border: none;
   color: white;
 }
