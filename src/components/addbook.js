@@ -29,31 +29,31 @@ const Addbook = () => {
   };
 
   return (
-    <div>
+    <div className="addbook">
       <form>
         <h3>Add New Book</h3>
         <input
           type="text"
-          className="input-text"
+          className="input-text inputs"
           placeholder="Add Title..."
           name="title"
           onChange={handleInputValues}
         />
         <input
           type="text"
-          className="input-text2"
+          className="input-text2 inputs"
           placeholder="Add Author"
           name="author"
           onChange={handleInputValues}
         />
-        <select value={bookDetail.category} onChange={handleInputValues} name="category" className="category">
+        <select value={bookDetail.category} onChange={handleInputValues} name="category" className="inputs">
           <option value="History">Romance</option>
           <option value="Romance">History</option>
           <option value="Mystery">Technology</option>
           <option value="Science">Science</option>
           <option value="Technology">Mystery</option>
         </select>
-        <button type="submit" onClick={handleSubmit}>
+        <button className="submit" type="submit" onClick={handleSubmit}>
           submit
         </button>
       </form>

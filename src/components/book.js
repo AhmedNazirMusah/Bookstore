@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeBookThunk, getBooksThunk } from '../redux/books/books';
@@ -42,6 +44,15 @@ const Book = () => {
                 Edit
               </button>
             </ul>
+          </div>
+          <div className="progress">
+            <div className="oval" />
+            <CircularProgressbar className="loader" value={Math.floor(Math.random() * 100)} text={`${Math.floor(Math.random() * 100)}%`} />
+          </div>
+          <div className="chapter">
+            <h4>Current Chapter</h4>
+            <h5>Chapter 02</h5>
+            <button className="chapter--button b-color" type="button">IN PROGRESS</button>
           </div>
         </div>
       ))}
