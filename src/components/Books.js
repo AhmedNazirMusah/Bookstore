@@ -9,5 +9,3 @@ const Books = () => (
 );
 
 export default Books;
-
-// ZMP8Cx3pL0HB31pM9poX
